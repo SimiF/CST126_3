@@ -21,7 +21,7 @@
     <ClInclude Include="targetver.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="word.h">
+    <ClInclude Include="textData.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -32,7 +32,7 @@
     <ClCompile Include="CST1263.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="word.cpp">
+    <ClCompile Include="textData.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -40,5 +40,8 @@
     <None Include="..\README.md">
       <Filter>Source Files</Filter>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="little.txt" />
   </ItemGroup>
 </Project>
