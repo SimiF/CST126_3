@@ -1,15 +1,18 @@
 // fstream code has been constructed using CST126_02 / Professor sample as a template.
 // Video found at https://www.youtube.com/watch?v=Iho2EdJgusQ has helped me understand how to read from files
+// Website http://www.cplusplus.com/ has helped me understand the conversion from uppercase to lowercase
 #include "stdafx.h"
 #include <iostream>
 #include <fstream>
 #include <string>
+#include <locale>
 
 #include "textData.h"
 
 bool openFile(std::ifstream & inputFile);
 int getSize(std::ifstream & inputFile);
-void fillClass(std::ifstream & inputFile, textData * tPtr, int size);
+void fillClass(std::ifstream & inputFile, textData * tPtr, int & size);
+void editClass(textData * tPtr, int & size);
 
 int main()
 {
@@ -19,13 +22,14 @@ int main()
 	{
 		int wordCount{ getSize(textFile) };
 
-		textData * textDataPtr{ nullptr };
-		textDataPtr = new textData[wordCount];
+		textData * tPtr{ nullptr };
+		tPtr = new textData[wordCount];
 
-		fillClass(textFile, textDataPtr, wordCount);
+		fillClass(textFile, tPtr, wordCount);
+		editClass(tPtr, wordCount);
 
-		delete[] textDataPtr;
-		textDataPtr = nullptr;
+		delete[] tPtr;
+		tPtr = nullptr;
 	}
 		
     return 0;
@@ -33,7 +37,7 @@ int main()
 
 bool openFile(std::ifstream & inputFile)
 {
-	std::string fileName;
+	std::string fileName{ '\0' };
 
 	std::cout << "Please enter the input file name including extension : ";
 	std::cin >> fileName;
@@ -59,13 +63,33 @@ int getSize(std::ifstream & inputFile)
 	return wordCount;
 }
 
-void fillClass(std::ifstream & inputFile, textData * tPtr, int size)
+void fillClass(std::ifstream & inputFile, textData * tPtr, int & size)
 {
 	std::string word;
 
 	for (int i{ 0 }; i < size && !inputFile.eof(); i++)
 	{
 		inputFile >> word;
-		
+		tPtr[i].wordUpdate(word);
+	}
+}
+
+void editClass(textData * tPtr, int & size)
+{
+	std::locale loc;
+	for (int i{ 0 }; i < size; i++)
+	{
+		int j{ 0 };
+		for (j; tPtr[i].getWordC(j) != '\0'; j++)
+		{
+			if (ispunct(tPtr[i].getWordC(j)) && tPtr[i].getWordC(j) != '-')
+			{
+				tPtr[i].charUpdate(j, '\0');
+			}
+			if (std::isupper(tPtr[i].getWordC(j), loc))
+			{
+				tPtr[i].charUpdate(j, std::tolower(tPtr[i].getWordC(j), loc));
+			}
+		}
 	}
 }
