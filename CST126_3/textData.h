@@ -10,10 +10,14 @@ class textData
 public:
 	textData(){ word = '\0'; wordOccurence = 0; };
 	void wordUpdate(std::string w) { word = w; };
-	void getWord() { std::cout << word << std::endl; };
-	void getWordCP(int i) { std::cout << word[i] << std::endl; };
-	char getWordC(int i) { return word[i]; };
+	void printWord() { std::cout << word << std::endl; };
+	std::string getWord() { return word; };
 	void charUpdate(int i, char c) { word[i] = c; };
+	void printWordC(int i) { std::cout << word[i] << std::endl; };
+	char getWordC(int i) { return word[i]; };
+	void upWC() { wordOccurence++; };
+	void printWC() { std::cout << wordOccurence << std::endl; };
+	int getWC() { return wordOccurence; };
 private:
 	std::string word;
 	int wordOccurence;

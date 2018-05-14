@@ -43,5 +43,8 @@
   </ItemGroup>
   <ItemGroup>
     <Text Include="little.txt" />
+    <Text Include="fed1.txt" />
+    <Text Include="fed2.txt" />
+    <Text Include="fed6.txt" />
   </ItemGroup>
 </Project>

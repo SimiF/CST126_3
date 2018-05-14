@@ -1,11 +1,14 @@
 // fstream code has been constructed using CST126_02 / Professor sample as a template.
 // Video found at https://www.youtube.com/watch?v=Iho2EdJgusQ has helped me understand how to read from files
 // Website http://www.cplusplus.com/ has helped me understand the conversion from uppercase to lowercase
+// Website http://www.programmingincpp.com/string-erase-function.html has helped me understand how to 
+// erase characters
 #include "stdafx.h"
 #include <iostream>
 #include <fstream>
 #include <string>
 #include <locale>
+#include <iomanip>
 
 #include "textData.h"
 
@@ -13,6 +16,7 @@ bool openFile(std::ifstream & inputFile);
 int getSize(std::ifstream & inputFile);
 void fillClass(std::ifstream & inputFile, textData * tPtr, int & size);
 void editClass(textData * tPtr, int & size);
+void countWords(textData * tPtr, int & size);
 
 int main()
 {
@@ -27,6 +31,7 @@ int main()
 
 		fillClass(textFile, tPtr, wordCount);
 		editClass(tPtr, wordCount);
+		countWords(tPtr, wordCount);
 
 		delete[] tPtr;
 		tPtr = nullptr;
@@ -84,11 +89,29 @@ void editClass(textData * tPtr, int & size)
 		{
 			if (ispunct(tPtr[i].getWordC(j)) && tPtr[i].getWordC(j) != '-')
 			{
-				tPtr[i].charUpdate(j, '\0');
+				tPtr[i].wordUpdate(tPtr[i].getWord().erase(j, 1));
+				if (j != 0)
+				{
+					j -= 1;
+				}
 			}
 			if (std::isupper(tPtr[i].getWordC(j), loc))
 			{
 				tPtr[i].charUpdate(j, std::tolower(tPtr[i].getWordC(j), loc));
+			}
+		}
+	}
+}
+
+void countWords(textData * tPtr, int & size)
+{
+	for (int i{ 0 }; i < size; i++)
+	{
+		for (int j{ 0 }; j < size; j++)
+		{
+			if (tPtr[i].getWord() == tPtr[j].getWord())
+			{
+				tPtr[i].upWC();
 			}
 		}
 	}

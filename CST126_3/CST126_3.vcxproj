@@ -161,6 +161,9 @@
     <None Include="..\README.md" />
   </ItemGroup>
   <ItemGroup>
+    <Text Include="fed1.txt" />
+    <Text Include="fed2.txt" />
+    <Text Include="fed6.txt" />
     <Text Include="little.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
