@@ -14,9 +14,9 @@
 
 bool openFile(std::ifstream & inputFile);
 int getSize(std::ifstream & inputFile);
-void fillClass(std::ifstream & inputFile, textData * tPtr, int & size);
-void editClass(textData * tPtr, int & size);
-void countWords(textData * tPtr, int & size);
+void fillClass(std::ifstream & inputFile, textData * tPtr, const int & size);
+void editClass(textData * tPtr, const int & size);
+void countWords(textData * tPtr, const int & size);
 
 int main()
 {
@@ -32,9 +32,6 @@ int main()
 		fillClass(textFile, tPtr, wordCount);
 		editClass(tPtr, wordCount);
 		countWords(tPtr, wordCount);
-
-		delete[] tPtr;
-		tPtr = nullptr;
 	}
 		
     return 0;
@@ -68,7 +65,7 @@ int getSize(std::ifstream & inputFile)
 	return wordCount;
 }
 
-void fillClass(std::ifstream & inputFile, textData * tPtr, int & size)
+void fillClass(std::ifstream & inputFile, textData * tPtr, const int & size)
 {
 	std::string word;
 
@@ -79,7 +76,7 @@ void fillClass(std::ifstream & inputFile, textData * tPtr, int & size)
 	}
 }
 
-void editClass(textData * tPtr, int & size)
+void editClass(textData * tPtr, const int & size)
 {
 	std::locale loc;
 	for (int i{ 0 }; i < size; i++)
@@ -103,7 +100,7 @@ void editClass(textData * tPtr, int & size)
 	}
 }
 
-void countWords(textData * tPtr, int & size)
+void countWords(textData * tPtr, const int & size)
 {
 	for (int i{ 0 }; i < size; i++)
 	{

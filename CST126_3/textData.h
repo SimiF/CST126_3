@@ -15,6 +15,7 @@ public:
 	void charUpdate(int i, char c) { word[i] = c; };
 	void printWordC(int i) { std::cout << word[i] << std::endl; };
 	char getWordC(int i) { return word[i]; };
+	int updateWC(int i) { return wordOccurence = i; };
 	void upWC() { wordOccurence++; };
 	void printWC() { std::cout << wordOccurence << std::endl; };
 	int getWC() { return wordOccurence; };
