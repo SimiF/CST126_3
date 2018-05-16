@@ -19,6 +19,7 @@ public:
 	void upWC() { wordOccurence++; };
 	void printWC() { std::cout << wordOccurence << std::endl; };
 	int getWC() { return wordOccurence; };
+	void update(std::string s, int i) { word = s; wordOccurence = i; };
 private:
 	std::string word;
 	int wordOccurence;

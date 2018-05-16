@@ -3,6 +3,8 @@
 // Website http://www.cplusplus.com/ has helped me understand the conversion from uppercase to lowercase
 // Website http://www.programmingincpp.com/string-erase-function.html has helped me understand how to 
 // erase characters
+// bubblesort has been constructed using Professor's sample as a guide
+
 #include "stdafx.h"
 #include <iostream>
 #include <fstream>
@@ -17,6 +19,8 @@ int getSize(std::ifstream & inputFile);
 void fillClass(std::ifstream & inputFile, textData * tPtr, const int & size);
 void editClass(textData * tPtr, const int & size);
 void countWords(textData * tPtr, const int & size);
+void sortWords(textData * tPtr, const int & size);
+void printTopTen(textData * tPtr);
 
 int main()
 {
@@ -24,7 +28,7 @@ int main()
 
 	if (openFile(textFile))
 	{
-		int wordCount{ getSize(textFile) };
+		const int wordCount{ getSize(textFile) };
 
 		textData * tPtr{ nullptr };
 		tPtr = new textData[wordCount];
@@ -32,6 +36,11 @@ int main()
 		fillClass(textFile, tPtr, wordCount);
 		editClass(tPtr, wordCount);
 		countWords(tPtr, wordCount);
+		sortWords(tPtr, wordCount);
+		printTopTen(tPtr);
+
+		delete[] tPtr;
+		tPtr = nullptr;
 	}
 		
     return 0;
@@ -43,6 +52,7 @@ bool openFile(std::ifstream & inputFile)
 
 	std::cout << "Please enter the input file name including extension : ";
 	std::cin >> fileName;
+	std::cout << std::endl;
 
 	inputFile.open(fileName);
 	if (inputFile.fail())
@@ -78,7 +88,7 @@ void fillClass(std::ifstream & inputFile, textData * tPtr, const int & size)
 
 void editClass(textData * tPtr, const int & size)
 {
-	std::locale loc;
+	std::locale const loc;
 	for (int i{ 0 }; i < size; i++)
 	{
 		int j{ 0 };
@@ -104,12 +114,41 @@ void countWords(textData * tPtr, const int & size)
 {
 	for (int i{ 0 }; i < size; i++)
 	{
-		for (int j{ 0 }; j < size; j++)
+		if (tPtr[i].getWC() == 0)
 		{
-			if (tPtr[i].getWord() == tPtr[j].getWord())
+			for (int j{ 0 }; j < size; j++)
 			{
-				tPtr[i].upWC();
+				if (tPtr[i].getWord() == tPtr[j].getWord())
+				{
+					tPtr[i].upWC();
+					tPtr[j].updateWC(1);
+				}
 			}
 		}
+	}
+}
+
+void sortWords(textData * tPtr, const int & size)
+{
+	for (int i{ 0 }; i < size - 1; i++)
+	{
+		for (int j{ 0 }; j < size - i - 1; j++)
+		{
+			if (tPtr[j + 1].getWC() > tPtr[j].getWC())
+			{
+				textData temp;
+				temp.update(tPtr[j].getWord(), tPtr[j].getWC());
+				tPtr[j].update(tPtr[j + 1].getWord(), tPtr[j + 1].getWC());
+				tPtr[j + 1].update(temp.getWord(), temp.getWC());
+			}
+		}
+	}
+}
+
+void printTopTen(textData * tPtr)
+{
+	for (int i{ 0 }; i < 10; i++)
+	{
+		std::cout << '\t' << std::right << tPtr[i].getWord() << " " << std::left << tPtr[i].getWC() << std::endl;
 	}
 }
