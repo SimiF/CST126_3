@@ -12,7 +12,7 @@
 #include <locale>
 #include <iomanip>
 
-#include "textData.h"
+#include "word.h"
 
 bool openFile(std::ifstream & inputFile);
 int getSize(std::ifstream & inputFile);
