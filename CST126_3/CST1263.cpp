@@ -1,10 +1,10 @@
-// fstream code has been constructed using CST126_02 / Professor sample as a template.
-// Video found at https://www.youtube.com/watch?v=Iho2EdJgusQ has helped me understand how to read from files
-// Website http://www.cplusplus.com/ has helped me understand the conversion from uppercase to lowercase
-// Website http://www.programmingincpp.com/string-erase-function.html has helped me understand how to 
-// erase characters
-// bubblesort has been constructed using Professor's sample as a guide
-
+/* 
+-  fstream code has been constructed using CST126_02 / Professor sample as a template.
+-  Video found at https://www.youtube.com/watch?v=Iho2EdJgusQ has helped me understand how to read from files
+-  Website http://www.cplusplus.com/ has helped me understand the conversion from uppercase to lowercase
+-  Website http://www.programmingincpp.com/string-erase-function.html has helped me understand how to 
+   erase characters bubblesort has been constructed using Professor's sample as a guide
+*/
 #include "stdafx.h"
 #include <iostream>
 #include <fstream>
