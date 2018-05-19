@@ -39,6 +39,8 @@ int main()
 		sortWords(tPtr, wordCount);
 		printTopTen(tPtr);
 
+		std::cout << std::endl;
+
 		delete[] tPtr;
 		tPtr = nullptr;
 	}
@@ -149,6 +151,6 @@ void printTopTen(textData * tPtr)
 {
 	for (int i{ 0 }; i < 10; i++)
 	{
-		std::cout << '\t' << std::right << tPtr[i].getWord() << " " << std::left << tPtr[i].getWC() << std::endl;
+		std::cout << std::setw(16) << std::right << tPtr[i].getWord() << " " << std::left << tPtr[i].getWC() << std::endl;
 	}
 }
