@@ -6,6 +6,7 @@
    erase characters bubblesort has been constructed using Professor's sample as a guide
 */
 #include "stdafx.h"
+#include <cassert>
 #include <iostream>
 #include <fstream>
 #include <string>
@@ -14,58 +15,25 @@
 
 #include "word.h"
 
-bool openFile(std::ifstream & inputFile);
-int getSize(std::ifstream & inputFile);
-void fillClass(std::ifstream & inputFile, textData * tPtr, const int & size);
-void editClass(textData * tPtr, const int & size);
-void countWords(textData * tPtr, const int & size);
-void sortWords(textData * tPtr, const int & size);
-void printTopTen(textData * tPtr);
-
-int main()
+bool openFile(std::ifstream & inputFile) // I wouldn't combine the data entry with the opening of a stream. I would just return the string and open it when returned. Keep your tasks in separate functions. 
 {
-	std::ifstream textFile;
-
-	if (openFile(textFile))
-	{
-		const int wordCount{ getSize(textFile) };
-
-		textData * tPtr{ nullptr };
-		tPtr = new textData[wordCount];
-
-		fillClass(textFile, tPtr, wordCount);
-		editClass(tPtr, wordCount);
-		countWords(tPtr, wordCount);
-		sortWords(tPtr, wordCount);
-		printTopTen(tPtr);
-
-		std::cout << std::endl;
-
-		delete[] tPtr;
-		tPtr = nullptr;
-	}
-		
-    return 0;
-}
-
-bool openFile(std::ifstream & inputFile)
-{
-	std::string fileName{ '\0' };
+	bool result{ false };
+	std::string fileName; // default constructor is an empty string. No need to initialize. 
 
 	std::cout << "Please enter the input file name including extension : ";
 	std::cin >> fileName;
 	std::cout << std::endl;
 
 	inputFile.open(fileName);
-	if (inputFile.fail())
+	if (!inputFile.good())
 	{
 		std::cout << "There has been an error trying to open the file " << fileName;
-		return false;
 	}
 	else
 	{
-		return true;
+		result = true;
 	}
+	return result; // Try to stick to a single return. 
 }
 
 int getSize(std::ifstream & inputFile)
@@ -77,24 +45,24 @@ int getSize(std::ifstream & inputFile)
 	return wordCount;
 }
 
-void fillClass(std::ifstream & inputFile, textData * tPtr, const int & size)
+void fillClass(std::ifstream & inputFile, textData * const tPtr, const int & size)
 {
 	std::string word;
 
 	for (int i{ 0 }; i < size && !inputFile.eof(); i++)
 	{
 		inputFile >> word;
+		assert(inputFile.good());
 		tPtr[i].wordUpdate(word);
 	}
 }
 
-void editClass(textData * tPtr, const int & size)
+void editClass(textData * const tPtr, const int & size)
 {
 	std::locale const loc;
 	for (int i{ 0 }; i < size; i++)
 	{
-		int j{ 0 };
-		for (j; tPtr[i].getWordC(j) != '\0'; j++)
+		for (int j{0}; tPtr[i].getWordC(j) != '\0'; j++)
 		{
 			if (ispunct(tPtr[i].getWordC(j)) && tPtr[i].getWordC(j) != '-')
 			{
@@ -112,7 +80,7 @@ void editClass(textData * tPtr, const int & size)
 	}
 }
 
-void countWords(textData * tPtr, const int & size)
+void countWords(textData * const tPtr, const int & size)
 {
 	for (int i{ 0 }; i < size; i++)
 	{
@@ -130,7 +98,7 @@ void countWords(textData * tPtr, const int & size)
 	}
 }
 
-void sortWords(textData * tPtr, const int & size)
+void sortWords(textData * const tPtr, const int & size)
 {
 	for (int i{ 0 }; i < size - 1; i++)
 	{
@@ -147,10 +115,35 @@ void sortWords(textData * tPtr, const int & size)
 	}
 }
 
-void printTopTen(textData * tPtr)
+void printTopTen(textData const * const tPtr)
 {
 	for (int i{ 0 }; i < 10; i++)
 	{
 		std::cout << std::setw(16) << std::right << tPtr[i].getWord() << " " << std::left << tPtr[i].getWC() << std::endl;
 	}
+}
+
+int main() // Moved to end of file so the defintions can also be used as declarations. 
+{
+	std::ifstream textFile;
+
+	if (openFile(textFile))
+	{
+		const int wordCount{ getSize(textFile) };
+
+		textData * const tPtr{ new textData[wordCount] }; // Lock your heap pointers with const. If it changes, you're doomed. 
+
+		fillClass(textFile, tPtr, wordCount);
+		editClass(tPtr, wordCount);
+		countWords(tPtr, wordCount);
+		sortWords(tPtr, wordCount);
+		printTopTen(tPtr);
+
+		std::cout << std::endl;
+
+		delete[] tPtr;
+		// tPtr = nullptr; // Don't need to erase, it's exiting scope. 
+	}
+
+	return 0;
 }

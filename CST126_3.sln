@@ -5,6 +5,12 @@ VisualStudioVersion = 15.0.26730.12
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "CST126_3", "CST126_3\CST126_3.vcxproj", "{FADDD884-9126-4CD0-82E0-FEE198FCD558}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{83543643-B42C-4EF2-976F-E6A74418B1BE}"
+	ProjectSection(SolutionItems) = preProject
+		Lab3.docx = Lab3.docx
+		README.md = README.md
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
