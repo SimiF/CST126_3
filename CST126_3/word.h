@@ -1,25 +1,25 @@
-#include "stdafx.h"
 #include <string>
-#include <iostream>
+// #include <iostream> // Unused
 
-#ifndef TEXT_DATA
-#define TEXT_DATA
+#ifndef __WORD_H__ // Name of header is the most common way to do this.
+#define __WORD_H__
 
 class textData
 {
 public:
-	textData(){ word = '\0'; wordOccurence = 0; };
-	void wordUpdate(std::string w) { word = w; };
-	std::string getWord() { return word; };
-	void charUpdate(int i, char c) { word[i] = c; };
-	char getWordC(int i) { return word[i]; };
-	int updateWC(int i) { return wordOccurence = i; };
+	// textData(): wordOccurence{ 0 }{} ; // Not creating a constructor that is generated anyway. If you needed to make one, try to use a "member initializer list" when reasonable to do so. 
+	void wordUpdate(const std::string w) { word = w; };
+	std::string getWord() const { return word; }; // getters should most likely be marked const. 
+	void charUpdate(const int i, const char c) { word[i] = c; };
+	char getWordC(const int i) const { return word[i]; }; // getters should most likely be marked const. 
+	int updateWC(const int i) { return wordOccurence = i; };
 	void upWC() { wordOccurence++; };
-	int getWC() { return wordOccurence; };
-	void update(std::string s, int i) { word = s; wordOccurence = i; };
+	int getWC() const { return wordOccurence; }; // getters should most likely be marked const. 
+	void update(const std::string s, const int i) { word = s; wordOccurence = i; };
+
 private:
 	std::string word;
-	int wordOccurence;
+	int wordOccurence{0};
 };
 
-#endif /*TEXT_DATA*/
+#endif // __WORD_H__

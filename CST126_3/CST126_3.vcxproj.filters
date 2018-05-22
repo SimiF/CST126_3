@@ -37,11 +37,6 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\README.md">
-      <Filter>Source Files</Filter>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
     <Text Include="little.txt" />
     <Text Include="fed1.txt" />
     <Text Include="fed2.txt" />
